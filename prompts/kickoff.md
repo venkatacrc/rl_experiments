@@ -21,8 +21,9 @@ Both matter, but if they trade off, prioritize the learning value — I'm fine w
 - NVIDIA Jetson Orin Nano 8GB Developer Kit
 - 500GB NVMe SSD (for the Jetson)
 - USB-C power supply (need you to verify whether this can adequately power the Jetson Orin Nano — see questions below)
-- MacBook Pro, M1 chip (my dev machine — note: no CUDA, so on-device deep RL training isn't an option here)
-- MSI GE75 Raider 10SE with NVIDIA GeForce RTX 2060 (6GB GDDR6) graphics card and an Intel HM470 chipset
+- MacBook Pro, M1 chip (general dev machine — no CUDA)
+- MSI GE75 Raider 10SE laptop, NVIDIA GeForce RTX 2060 (6GB GDDR6), Intel HM470 chipset — this is my CUDA-capable machine for local training
+- Also able to spin up cloud GPU instances (A100/H100) for training if needed
 - A USB camera
 - Open to buying small/cheap additional components (motors, sensors, chassis parts, etc.)
 
@@ -53,7 +54,7 @@ I know my DIY build won't match these on raw suction power or polish — that's 
 
 4. **Power architecture** — Verify current specs on whether the Jetson Orin Nano 8GB Dev Kit can run reliably from USB-C power delivery for an untethered/mobile robot, what wattage/voltage it actually needs, and how I should separately power the drive motors and vacuum motor from a battery without interfering with the Jetson's power.
 
-5. **Where/how to train** — Given a CUDA-less M1 MacBook Pro for dev and an Orin Nano onboard, where should RL training actually happen (cloud GPU, local CPU-only for phase 1, on-device for fine-tuning)? Recommend simulators: something lightweight/custom for the phase-1 grid-world, and an appropriate option (PyBullet, MuJoCo, Isaac Lab/Sim, Gazebo, or other) for the phase-2 camera-based policy, with trade-offs given my setup.
+5. **Where/how to train** — I have a local CUDA GPU (RTX 2060, 6GB GDDR6) on the MSI GE75 Raider, a CUDA-less M1 MacBook Pro for general dev, an Orin Nano onboard the robot, and the ability to spin up cloud GPU instances (A100/H100) when needed. Help me decide the right split: what's realistic to train locally on the 6GB RTX 2060 (e.g., phase-1 grid-world, small-scale phase-2 prototyping) vs. when it's actually worth paying for cloud A100/H100 time (e.g., larger CNN policies, massively parallel environment rollouts, domain-randomized sim-to-real training) — including a rough sense of cost/time tradeoffs. Recommend simulators: something lightweight/custom for the phase-1 grid-world (fine on CPU), and an appropriate option (PyBullet, MuJoCo, Isaac Lab/Sim, Gazebo, or other) for the phase-2 camera-based policy — including whether Isaac Sim/Lab makes sense locally on the 6GB card vs. needing cloud GPUs to run well.
 
 6. **RL algorithm choices per phase**, with justification — tabular methods for phase 1, and your recommended deep RL family/algorithm for the camera-based CNN policy in phase 2. Point me to relevant coverage-path-planning RL approaches/literature (reward shaping for coverage, exploration strategy, frame stacking, etc.) rather than generic Atari-style recipes.
 
